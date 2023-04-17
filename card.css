@@ -1,0 +1,411 @@
+*:not(.card__image-column) {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+:root {
+  --card-background-color: rgb(201, 201, 114);
+  --card-background-color: rgb(45, 45, 45, 0.9);
+  --card-background-color: linear-gradient(90deg, rgba(147,145,186,1) 0%, rgba(200,170,170,1) 100%, rgba(18,21,22,1) 100%);
+  --card__article-background-color: rgb(201, 201, 114, 0.7);
+  --card__article-background-color: linear-gradient(90deg, rgba(147,145,186,0.8) 0%, rgba(200,170,170,0.8) 100%, rgba(18,21,22,0.8) 100%);
+  --card__headline-background-color: rgb(102, 51, 153, 0.1);
+  --card__headline-background-color: rgb(45, 45, 45, 1);
+  --card__headline-background-color: radial-gradient(rgb(45, 45, 45, 0.9)) rgb(45, 45, 45, 1);
+
+/* typography */
+--image-column-padding: clamp(1rem, 4vw, 3rem);
+
+          /* containerQuery pairing with JS  */
+          --parentOfCardContainerOffsetWidth: 800px;
+
+}
+
+body {
+min-width: 100vw;
+max-width: 100vw;
+}
+
+.parent-of-card-container {
+container-type: inline-size;
+container-name: parent-of-card-container;
+/* width: 100%; */
+}
+
+
+article :is(h3) {
+  font-size: var(--fs-md, clamp(2rem, 4vw, 3rem));
+}
+
+
+
+
+.card-container {
+container-type: inline-size;
+container-name: card_container-container;
+display: grid;
+grid-template: auto fit-content / 50% 50%;
+grid-template-areas: 
+"headline headline"
+"card card";
+background-color: var(--card-background-color);
+background: var(--card-background-color);
+background: var(--card__article-background-color);
+gap: clamp(1rem, 4vw, 2rem);
+padding-bottom: 2.5rem;
+
+}
+
+/* .parent-of-card-container > .card-container:nth-child(odd){
+background-color: var(--card-background-color);
+}
+
+.parent-of-card-container > .card-container:nth-child(even){
+background-color: var(--card__article-background-color);
+} */
+
+
+
+.card-container__headline {
+grid-area: headline;
+padding-top: clamp(1.25rem, 5%, 2rem);
+display: grid;
+place-items: center;
+font-size: clamp(3rem, 8vw, 6rem);
+font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+background-color: var(--card__headline-background-color);
+/* box-shadow: var(--card__headline-background-color) 5px 5px 5px 5px; */
+box-shadow: 0px -0.25px 0px 0px;
+}
+
+.card-container__card {
+--_image-column--width: 50%;
+grid-area: card;
+display: grid;
+grid-template: 100% / var(--_image-column--width) calc((100%) - var(--_image-column--width));
+grid-template-areas: 
+"image article"
+}
+
+  .parent-of-card-container > .card-container:nth-child(even) > .card-container__card {
+container-name: card_container-container;
+grid-template: 100% / calc((100%) - var(--_image-column--width)) var(--_image-column--width);
+grid-template-areas: 
+"article image";
+}
+
+.card__image-column {
+  box-sizing: content-box;
+--_top-bottom-padding: 3rem;
+display: grid;
+place-items: center;
+grid-area: image; 
+--image-column-padding: clamp(1.5rem, 4vw, 3rem);
+z-index: 1;
+height: calc(clamp(300px, 550px, 1200px) - var(--size-xxl, 3.5rem));
+/* height: 200px; */
+/* height: clamp(300px, 300px, 400px); */
+top: var(--_top-bottom-padding); /* Set the top position to 0 so it sticks to the top of the container */
+padding: 0 calc(var(--image-column-padding) / 2) var(--_top-bottom-padding) var(--image-column-padding); 
+background-color: transparent;
+border-radius: 5px 5px 5px 0px;
+}
+
+
+  .card__image-column[aria-expanded="true"][aria-mobile="false"]{
+    position: sticky;
+  }
+
+  .card__image-column[aria-mobile="true"][aria-locked="true"] {
+    position: sticky;
+  }
+  .card__image-column[aria-mobile="true"][aria-locked="false"] {
+    position: relative;
+  }
+
+
+.card__image-column > :nth-child(1) {
+/* box-shadow: -5px 15px 15px 5px; */
+border-radius: 20px;
+box-shadow: -7.5px 15px 15px 15px;
+z-index: -1;
+height: 100%;
+width: 100%;
+background-size: 100% 100%;
+/* background-position: 5% 5%; */
+background-repeat: no-repeat;
+}
+
+.card__image-column[aria-expanded="false"] > .card__image-column-btn--container {
+display:none;
+}
+/* JS Code - read more btn.onClick > card-image__column classlist toggle PS to PR + toggle card__image-column [aria-expanded] to true  */
+
+#test-1 {
+background-image: url(/images/try.png);
+}
+
+#test-2 {
+background-image: url(/images/try2.png);
+}
+#test-3 {
+background-image: url(/images/try3.png);
+}
+
+              /* .card > * > img {
+                  width: 100%;
+                  max-height: 100%;
+                  object-fit: contain;
+              } */
+
+.card__text-column {
+grid-area: article;
+padding: 0 calc(var(--image-column-padding) / 2);
+background-color: transparent;
+}
+
+
+
+.card-paragraph {
+  display: grid;
+  place-content: center;
+  /* place-items: center; */
+  grid-template-rows: auto fit-content;
+  grid-template-columns: 80% 20%;
+}
+
+
+.card-paragraph :is(h3) {
+  grid-column: 1 / 2;
+  hyphens: auto;
+}
+
+.card-paragraph__button {
+display: grid;
+grid-column: 2 / -1;
+min-height: fit-content;
+place-content: center;
+justify-content: end;
+}
+
+/* Setting ellipsis to the first paragraph of the card-paragraph */
+.card-paragraph__parent[aria-expanded="false"] p:first-of-type {
+  display: -webkit-box;
+-webkit-line-clamp: 10;
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+
+
+.card-paragraph__parent[aria-expanded="false"] p:first-of-type ~ p {
+display: none;
+}
+
+.card-paragraph__parent[aria-expanded="true"] > li::after {
+  content: "";
+  margin-top: 2rem;
+  background-color: transparent;
+}
+
+
+.card-paragraph :is(button),
+.card__image-column-btn--container :is(button) {
+  --_card-button-height: 2.5rem;/* Nested Calculation */  /* (card__image-column.innerHeight) + (card__image-column.padding-bottom) + (--_card-button-height) */
+  min-height: var(--_card-button-height,  2.5rem);
+  max-height: var(--_card-button-height,  2.5rem);
+  grid-column: 2 / -1;
+}
+
+.card__text-column > * > * {
+  padding: clamp(0.25rem, 2%, 0.5rem) 0;
+  }
+
+.card-paragraph > p {
+  margin-block-start: clamp(0.75rem, 3vh, 1.5rem);
+  margin-block-end: clamp(0.75rem, 3vh, 1.5rem);
+  font-size: var(--fs-sm, clamp(1.5rem, 2vw, 3rem));
+  grid-column: 1 / -1;
+  line-height:125%;
+}
+
+
+
+
+/* utility classes */
+.PR {
+  position: relative;
+}
+
+.PS {
+  position: sticky;
+}
+
+/* This Width is the controlling size for the window.addEventListenerFunction("resize", () => {
+   if(parentOfCardContainer.offsetWidth ) ...
+}*/
+@container parent-of-card-container (width < 800px) {
+.card-container__card {
+grid-template: auto 1fr / 100%;
+grid-template-areas: 
+"image"
+"article";
+margin: clamp(1rem, 4vw, 2rem);
+}
+
+.parent-of-card-container > .card-container:nth-child(even) > .card-container__card {
+grid-template: auto 1fr / 100%;
+grid-template-areas: 
+"image"
+"article";
+margin: clamp(1rem, 4vw, 2rem);
+}
+
+.card-container__headline {
+   text-align: center;
+   font-size: clamp(3rem, 8vw, 6rem);
+}
+
+.card-paragraph__parent[aria-expanded="false"] .card-paragraph :is(h3) {
+      grid-column: 1 / -1;
+    }
+
+.card__text-column :is(h3) {
+  font-size: var(--fs-md, clamp(2rem, 3vw, 3.5rem));
+}
+
+.card__text-column :is(.card-paragraph) > p {
+  margin-block-start: clamp(0.75rem, 3vh, 1.5rem);
+  margin-block-end: clamp(0.75rem, 3vh, 1.5rem);
+  font-size: var(--fs-sm, clamp(1.25rem, 2vw, 2.5rem));
+  grid-column: 1 / -1;
+  hyphens: auto;
+  letter-spacing: 0.1px;
+  line-height:125%;
+}
+
+.card__image-column {
+  --_top-bottom-padding: 1rem;
+  --_box-shadow-top: 5px;
+  /* prevent the image from scrolling down on mobile view
+      (with position relative)
+      outcomment position relative to make it scrollable and act as a bookmark but have to fix the width of the image if we consider
+  */ 
+/* position: relative; */
+top: 0;
+/* left: 5px; */
+}
+/* .PR {
+  position: relative;
+}
+.PS {
+  position: sticky;
+} */
+
+.card__image-column > :is(.card-image) {
+  border-radius: 10px 5px 5px 10px;
+  box-shadow: -13.5px -3px 7.5px var(--_box-shadow-top);
+}
+
+/* Hiding the Scroll to bottom button on mobile view */
+.card__image-column > .card__image-column-btn--container {
+  display: none;
+}
+
+}
+
+
+/* Control the Image width with those values */
+@container parent-of-card-container (width > 800px) {
+.card-container__card {
+--_image-column--width: 45%;
+}
+}
+@container parent-of-card-container (width > 1600px) {
+.card-container__card {
+--_image-column--width: 40%;
+}
+}
+
+
+.card__image-column-btn--container {
+  position: absolute;
+  display: flex;
+  bottom: clamp(-3rem, -25%, -4rem);
+    left: var(--image-column-padding);
+    width: 85%;
+  background-color: transparent;
+  justify-content: space-between;
+}
+
+.card__image-column-btn--container[aria-hidden="true"] {
+  display: none;
+}
+
+
+.card__image-column[aria-expanded="false"] > .card__image-column-btn--container > * > button {
+  /* opacity: 0; */
+  animation: hideElement 0.1s ease;
+}
+.card__image-column[aria-expanded="true"] > .card__image-column-btn--container > * > button  {
+  /* opacity: 1; */
+  animation: showElement 0.3s ease;
+}
+
+@keyframes hideElement {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes showElement {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* Hiding any but the first Element(excluding the first children's children) of the card-paragraph__parent */
+.card-paragraph__parent[aria-expanded="false"] > li:not(:first-child) {
+  display: none;
+}
+
+/* Hiding the scroll buttons of the parapgraph */
+.card-paragraph__parent[aria-expanded="false"] > .card-paragraph :is(.onclick-scroller) {
+  display: none;
+}
+
+
+/* .card-paragraph__parent[aria-expanded="false"] > .card-paragraph >  .card-paragraph__expander  */
+.card-paragraph__expander {
+    --_card-paragraph__expander-width: calc(100% - var(--_card-paragraph__expander-margin) * 2);
+    /* Center the expander button by changing the expander-margin % */
+    --_card-paragraph__expander-margin: 10%;
+    grid-column: 1 / -1;
+    width: var( --_card-paragraph__expander-width);
+    height: 3rem;
+    margin-left: var(--_card-paragraph__expander-margin);
+    /* height: 2rem; */
+    /* bottom: 10px; */
+  }
+
+
+/* before / after content" read more " / "close "  */
+  /* ? ? ? ? Einfügen oder Nicht ? ? ? */
+
+
+.card-container[aria-hidden="true"] > .card-container__card > .card__image-column > .card__image-column-btn--container {
+  display: none;
+}
+
